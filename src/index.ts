@@ -14,8 +14,6 @@ class LessPluginAliasResolver implements Less.Plugin {
 
   constructor(options?: Options) {
     this.options = this.parseOptions(options);
-    console.log('options: ', this.options);
-
     this.minVersion = [3, 0, 0];
   }
 
