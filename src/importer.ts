@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+
 export function getFileManager(less: LessStatic): AliasFileManagerContruct {
   const FileManager = less.FileManager;
 
@@ -13,7 +15,8 @@ export function getFileManager(less: LessStatic): AliasFileManagerContruct {
 
       if (alias) {
         const { prefix, replaceText } = alias;
-        filename = `${replaceText}${filename.substring(prefix.length)}`;
+        const subPath = filename.substring(prefix.length);
+        filename = resolve(replaceText, subPath.startsWith('/') ? `.${subPath}` : subPath);
       }
 
       return filename;
