@@ -12,9 +12,10 @@ class LessPluginAliasResolver implements Less.Plugin {
     };
     this.minVersion = [3, 0, 0];
   }
+
   install(less: LessStatic, pluginManager: Less.PluginManager) {
     const AliasResolverFileManager = getFileManager(less);
-    console.log('=less=', less.options, pluginManager);
+    // console.log('=less=', less.options, pluginManager);
     pluginManager.addFileManager(new AliasResolverFileManager(this.options));
   }
 

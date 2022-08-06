@@ -4,9 +4,10 @@
     "module": "commonjs",
     "outDir": "lib",
     "sourceMap": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "declaration": true,
+    "types": ["less"]
   },
-  "files": ["src/types.d.ts"],
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }

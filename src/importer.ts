@@ -9,22 +9,20 @@ export function getFileManager(less: LessStatic): AliasFileManagerContruct {
       this.options = options;
     }
 
-    supports(
-      filename: string,
-      currentDirectory: string,
-      options: Less.LoadFileOptions,
-      environment: Less.Environment,
-    ): boolean {
-      return super.supports(filename, currentDirectory, options, environment);
-    }
+    renameFile(filename: string) {
+      const { alias } = this.options;
+      const prefixes = Object.keys(alias)
+        .filter((key) => filename.startsWith(key))
+        .sort((a, b) => b.length - a.length);
 
-    supportsSync(
-      filename: string,
-      currentDirectory: string,
-      options: Less.LoadFileOptions,
-      environment: Less.Environment,
-    ): boolean {
-      return super.supportsSync(filename, currentDirectory, options, environment);
+      if (prefixes.length) {
+        const prefix = prefixes[0];
+        const replaceText = alias[prefix];
+        console.log('====???', filename.substring(prefix.length), replaceText, prefix);
+        filename = replaceText + filename.substring(prefix.length);
+      }
+
+      return filename;
     }
 
     loadFile(
@@ -33,33 +31,16 @@ export function getFileManager(less: LessStatic): AliasFileManagerContruct {
       options: Less.LoadFileOptions,
       environment: Less.Environment,
     ): Promise<Less.FileLoadResult> {
-      return super.loadFile(filename, currentDirectory, options, environment);
+      return super.loadFile(this.renameFile(filename), currentDirectory, options, environment);
     }
+
     loadFileSync(
       filename: string,
       currentDirectory: string,
       options: Less.LoadFileOptions,
       environment: Less.Environment,
     ): Less.FileLoadResult | Less.FileLoadError {
-      return super.loadFileSync(filename, currentDirectory, options, environment);
-    }
-    getPath(filename: string): string {
-      return super.getPath(filename);
-    }
-    tryAppendLessExtension(filename: string): string {
-      return super.tryAppendLessExtension(filename);
-    }
-    alwaysMakePathsAbsolute(): boolean {
-      return super.alwaysMakePathsAbsolute();
-    }
-    isPathAbsolute(path: string): boolean {
-      return super.isPathAbsolute(path);
-    }
-    join(basePath: string, laterPath: string): string {
-      return super.join(basePath, laterPath);
-    }
-    pathDiff(url: string, baseUrl: string): string {
-      return super.pathDiff(url, baseUrl);
+      return super.loadFileSync(this.renameFile(filename), currentDirectory, options, environment);
     }
   }
 
