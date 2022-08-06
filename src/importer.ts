@@ -2,24 +2,18 @@ export function getFileManager(less: LessStatic): AliasFileManagerContruct {
   const FileManager = less.FileManager;
 
   class AliasFileManager extends FileManager {
-    options: Options;
-
-    constructor(options: Options) {
+    constructor(public options: SerializedOptions) {
       super();
       this.options = options;
     }
 
     renameFile(filename: string) {
-      const { alias } = this.options;
-      const prefixes = Object.keys(alias)
-        .filter((key) => filename.startsWith(key))
-        .sort((a, b) => b.length - a.length);
+      const { aliasList } = this.options;
+      const alias = aliasList.find((item) => filename.startsWith(item.prefix));
 
-      if (prefixes.length) {
-        const prefix = prefixes[0];
-        const replaceText = alias[prefix];
-        console.log('====???', filename.substring(prefix.length), replaceText, prefix);
-        filename = replaceText + filename.substring(prefix.length);
+      if (alias) {
+        const { prefix, replaceText } = alias;
+        filename = `${replaceText}${filename.substring(prefix.length)}`;
       }
 
       return filename;

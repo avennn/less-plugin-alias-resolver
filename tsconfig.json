@@ -6,7 +6,6 @@
     "sourceMap": false,
     "skipLibCheck": true,
     "declaration": true,
-    "types": ["less"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
