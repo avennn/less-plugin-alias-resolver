@@ -1,6 +1,6 @@
 // https://github.com/less/less-docs/blob/master/content/features/plugins.md
 import { resolve } from 'path';
-import { getFileManager, getUrlManager } from './importer';
+import { getFileManager, getUrlManager } from './alias-resolver';
 
 const DEFAULT_OPTIONS = {
   prefix: '',
