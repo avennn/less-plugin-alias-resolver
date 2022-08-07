@@ -38,5 +38,5 @@ less
 ## Options
 
 - `external`: default `~`, a conventional alias for `node_modules`.
-- `alias`: an object indicates how to resolve aliases，includes `@import`, `url()`, `font-face`. Be careful, each value should be absolute path.
+- `alias`: an object indicates how to resolve aliases，includes `@import`, `url()` in `background-image` and `@font-face` and so on. Be careful, each value should be absolute path.
 - `prefix`: a string which would join with key in `alias` object before matching and replacing.

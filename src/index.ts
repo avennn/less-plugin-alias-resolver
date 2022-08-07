@@ -1,6 +1,6 @@
 // https://github.com/less/less-docs/blob/master/content/features/plugins.md
 import { resolve } from 'path';
-import { getFileManager } from './importer';
+import { getFileManager, getUrlManager } from './importer';
 
 const DEFAULT_OPTIONS = {
   prefix: '',
@@ -55,13 +55,17 @@ class LessPluginAliasResolver implements Less.Plugin {
 
   install(less: LessStatic, pluginManager: Less.PluginManager) {
     const AliasResolverFileManager = getFileManager(less);
-    // console.log('=less=', less.options, pluginManager);
     pluginManager.addFileManager(new AliasResolverFileManager(this.options));
+
+    // https://github.com/less/less.js/issues/2371#issuecomment-68943626
+    const UrlManager = getUrlManager(less);
+    pluginManager.addVisitor(new UrlManager(this.options));
   }
 
   printUsage() {
     console.log('');
     console.log('less-plugin-alias-resolver');
+    console.log('Read more usage info from https://github.com/avennn/less-plugin-alias-resolver');
     console.log('');
   }
 }
