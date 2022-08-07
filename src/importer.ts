@@ -4,7 +4,7 @@ export function getFileManager(less: LessStatic): AliasFileManagerContruct {
   const FileManager = less.FileManager;
 
   class AliasFileManager extends FileManager {
-    constructor(public options: SerializedOptions) {
+    constructor(private options: SerializedOptions) {
       super();
       this.options = options;
     }
@@ -20,6 +20,15 @@ export function getFileManager(less: LessStatic): AliasFileManagerContruct {
       }
 
       return filename;
+    }
+
+    supports(filename: string): boolean {
+      const { aliasList } = this.options;
+      return aliasList.some((item) => filename.startsWith(item.prefix));
+    }
+
+    supportsSync(filename: string): boolean {
+      return this.supports(filename);
     }
 
     loadFile(
