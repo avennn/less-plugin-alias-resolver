@@ -1,4 +1,5 @@
 import { resolve, relative, sep } from 'path';
+import type { SerializedOptions, AliasResolverFileManagerContruct, AliasResolverUrlManagerContruct } from './interface';
 
 function rename(input: string, currentDirectory: string, options: SerializedOptions) {
   const { aliasList } = options;
@@ -27,19 +28,6 @@ export function getFileManager(less: LessStatic): AliasResolverFileManagerContru
   class AliasFileManager extends FileManager {
     constructor(private options: SerializedOptions) {
       super();
-    }
-
-    renameFile(filename: string) {
-      const { aliasList } = this.options;
-      const alias = aliasList.find((item) => filename.startsWith(item.prefix));
-
-      if (alias) {
-        const { prefix, replaceText } = alias;
-        const subPath = filename.substring(prefix.length);
-        filename = resolve(replaceText, subPath.startsWith('/') ? `.${subPath}` : subPath);
-      }
-
-      return filename;
     }
 
     supports(filename: string): boolean {
