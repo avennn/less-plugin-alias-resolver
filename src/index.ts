@@ -1,6 +1,7 @@
 // https://github.com/less/less-docs/blob/master/content/features/plugins.md
 import { resolve } from 'path';
 import { getFileManager, getUrlManager } from './alias-resolver';
+import type { Options, SerializedOptions } from './interface';
 
 const DEFAULT_OPTIONS = {
   prefix: '',

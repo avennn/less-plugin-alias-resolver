@@ -1,9 +1,9 @@
 {
   "name": "less-plugin-alias-resolver",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Less Plugin handling aliases.",
   "main": "lib/index.js",
-  "types": "src/types.d.ts",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "npm run build && node test",
     "build": "rm -rf lib && tsc",

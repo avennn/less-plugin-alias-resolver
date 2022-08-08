@@ -1,4 +1,5 @@
 import { resolve, relative, sep } from 'path';
+import type { SerializedOptions, AliasResolverFileManagerContruct, AliasResolverUrlManagerContruct } from './interface';
 
 function rename(input: string, currentDirectory: string, options: SerializedOptions) {
   const { aliasList } = options;
